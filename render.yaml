@@ -8,10 +8,8 @@ databases:
 services:
   - type: web
     name: app-colegio
-    runtime: php
+    runtime: docker
     plan: free
-    buildCommand: echo "Build complete. No dependencies to install."
-    startCommand: apache2-foreground
     envVars:
       - key: DB_HOST
         fromDatabase:
