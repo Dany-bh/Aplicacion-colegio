@@ -10,8 +10,7 @@ services:
     name: app-colegio
     runtime: php
     plan: free
-    build:
-      command: echo "Build complete. No dependencies to install."
+    buildCommand: echo "Build complete. No dependencies to install."
     startCommand: apache2-foreground
     envVars:
       - key: DB_HOST
