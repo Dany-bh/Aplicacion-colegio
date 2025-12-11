@@ -1,0 +1,44 @@
+services:
+  # Servicio Web para la aplicación PHP
+  - type: web
+    name: app-colegio
+    runtime: php
+    plan: free
+    build:
+      command: |
+        # Instalar extensiones de PHP si fueran necesarias en el futuro
+        # Por ejemplo: composer install
+        echo "Build completo. No se requieren dependencias."
+    startCommand: apache2-foreground
+    envVars:
+      - key: DB_HOST
+        fromService:
+          type: pserv
+          name: mysql-colegio
+          property: host
+      - key: DB_NAME
+        fromService:
+          type: pserv
+          name: mysql-colegio
+          property: database
+      - key: DB_USER
+        fromService:
+          type: pserv
+          name: mysql-colegio
+          property: user
+      - key: DB_PASS
+        fromService:
+          type: pserv
+          name: mysql-colegio
+          property: password
+      - key: RENDER_EXTERNAL_URL
+        value: ${RENDER_EXTERNAL_URL}
+
+  # Servicio de Base de Datos MySQL
+  - type: pserv
+    name: mysql-colegio
+    runtime: mysql
+    plan: free
+    databaseName: colegio2 # Nombre de la base de datos que se creará
+    user: colegio_user     # Nombre de usuario para la base de datos
+    region: oregon
